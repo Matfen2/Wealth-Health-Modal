@@ -1,16 +1,9 @@
-// eslint-disable-next-line strict
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "Modal", {
-  enumerable: true,
-  get: function get() {
-    return _Modal.default;
-  }
-});
-
-var _Modal = _interopRequireDefault(require("./components/Modal"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _react = _interopRequireDefault(require("react"));
+var _client = _interopRequireDefault(require("react-dom/client"));
+require("./index.css");
+var _app = _interopRequireDefault(require("../src/lib/app.js"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { "default": e }; }
+var root = _client["default"].createRoot(document.getElementById('root'));
+root.render(/*#__PURE__*/_react["default"].createElement(_react["default"].StrictMode, null, /*#__PURE__*/_react["default"].createElement(_app["default"], null)));
