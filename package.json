@@ -1,40 +1,36 @@
 {
   "name": "hrnet-wealth-modal",
-  "version": "1.0.1",
-  "description": "Conversion du plugin modal jquery en react",
+  "version": "1.0.4",
+  "private": false,
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
+  "description": "Conversion du plugin modal jquery en react",
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
   },
-  "scripts": {
-    "build": "babel src --out-dir dist --copy-files",
-    "prepublishOnly": "npm run build",
-    "test": "react-scripts test",
-    "start": "react-scripts start"
-  },
-  "keywords": [
-    "react",
-    "modal",
-    "component",
-    "hrnet"
+  "files": [
+    "dist"
   ],
-  "author": "Mathieu FENOUIL",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "styled-components": "^5.3.11"
-  },
-  "devDependencies": {
-    "@babel/cli": "^7.28.3",
-    "@babel/core": "^7.28.4",
-    "@babel/preset-env": "^7.28.3",
-    "@babel/preset-react": "^7.27.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
-  },
   "peerDependencies": {
     "react": ">=17",
     "react-dom": ">=17"
+  },
+  "dependencies": {
+    "styled-components": "^6.1.8"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.26.0",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-react": "^7.25.9",
+    "rimraf": "^6.0.1"
+  },
+  "scripts": {
+    "build": "rimraf dist && babel src --out-dir dist --copy-files --extensions .js,.jsx"
   }
 }
