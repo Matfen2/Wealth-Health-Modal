@@ -26,6 +26,7 @@
 - [REACT (**version 18.2.0**)](https://en.reactjs.org/) 
 - [React-dom(**version 18.2.0**)](https://en.reactjs.org/)
 - [VsCode](https://code.visualstudio.com/)
+- [NodeJs(**version 22.19.0**)](https://nodejs.org/)
 - [@babel/core](https://www.npmjs.com/package/@babel/core)
 - [@babel/preset-env](https://www.npmjs.com/package/@babel/preset-env)
 - [styled-components](https://www.npmjs.com/package/styled-components) 
