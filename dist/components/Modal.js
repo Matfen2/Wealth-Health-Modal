@@ -1,7 +1,17 @@
 var _templateObject, _templateObject2, _templateObject3, _templateObject4, _templateObject5, _templateObject6, _templateObject7;
 function _taggedTemplateLiteral(e, t) { return t || (t = e.slice(0)), Object.freeze(Object.defineProperties(e, { raw: { value: Object.freeze(t) } })); }
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
+
+/**
+ * Composant Modal réutilisable
+ * Props principales :
+ * - showModal : booléen qui contrôle l'affichage du modal
+ * - setShowModal : fonction qui ferme le modal
+ * - content : contenu du modal (string ou JSX)
+ * - iconModal : "success" | "error" | null → type d’icône affichée
+ * - backgroundColor, colorModal, contentcolor, borderModal, shadowModal, fontSizeModal : props pour la personnalisation
+ */
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 var Modal = _ref => {
   var {
@@ -18,7 +28,7 @@ var Modal = _ref => {
   } = _ref;
   var backdropRef = useRef(null);
 
-  // ESC pour fermer
+  // useEffect → écoute la touche ESC pour fermer le modal
   useEffect(() => {
     var onKeyDown = e => {
       if (e.key === "Escape") setShowModal(false);
@@ -27,10 +37,12 @@ var Modal = _ref => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [showModal, setShowModal]);
 
-  // clic backdrop
+  // Gestion du clic sur le fond noir → ferme le modal
   var handleBackdrop = e => {
     if (e.target === backdropRef.current) setShowModal(false);
   };
+
+  // Si showModal = false → on retourne null (rien n’est monté dans le DOM)
   if (!showModal) return null;
   return /*#__PURE__*/_jsx(Backdrop, {
     ref: backdropRef,
@@ -65,8 +77,7 @@ var Modal = _ref => {
   });
 };
 
-/* -------------------- Inline SVGs -------------------- */
-
+/* -------------------- SVG Success & Error -------------------- */
 var SuccessSVG = () => /*#__PURE__*/_jsx("svg", {
   width: "60",
   height: "60",
@@ -86,10 +97,9 @@ var ErrorSVG = () => /*#__PURE__*/_jsx("svg", {
   })
 });
 
-/* -------------------- Styles -------------------- */
-
-var fadeIn = keyframes(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n  from { opacity: 0; } to { opacity: 1; }\n"])));
-var riseIn = keyframes(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n  from { transform: translateY(6px); opacity: 0; }\n  to   { transform: translateY(0); opacity: 1; }\n"])));
+/* -------------------- Styles avec styled-components -------------------- */
+var fadeIn = keyframes(_templateObject || (_templateObject = _taggedTemplateLiteral(["from { opacity: 0; } to { opacity: 1; }"])));
+var riseIn = keyframes(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["from { transform: translateY(6px); opacity: 0; }\n                         to { transform: translateY(0); opacity: 1; }"])));
 var Backdrop = styled.div(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n  position: fixed;\n  inset: 0;\n  display: grid;\n  place-items: center;\n  z-index: 1000;\n  animation: ", " .2s ease-out;\n"])), fadeIn);
 var Dialog = styled.div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n  width: min(500px, 90%);\n  padding: 24px;\n  position: relative;\n  animation: ", " .2s ease-out;\n"])), riseIn);
 var CloseButton = styled.button(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n  position: absolute;\n  top: 8px;\n  right: 12px;\n  font-size: 1.5rem;\n  border: none;\n  background: transparent;\n  cursor: pointer;\n"])));

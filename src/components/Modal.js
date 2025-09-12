@@ -1,6 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styled, { keyframes } from "styled-components";
 
+/**
+ * Composant Modal réutilisable
+ * Props principales :
+ * - showModal : booléen qui contrôle l'affichage du modal
+ * - setShowModal : fonction qui ferme le modal
+ * - content : contenu du modal (string ou JSX)
+ * - iconModal : "success" | "error" | null → type d’icône affichée
+ * - backgroundColor, colorModal, contentcolor, borderModal, shadowModal, fontSizeModal : props pour la personnalisation
+ */
 const Modal = ({
   showModal,
   setShowModal,
@@ -15,7 +24,7 @@ const Modal = ({
 }) => {
   const backdropRef = useRef(null);
 
-  // ESC pour fermer
+  // useEffect → écoute la touche ESC pour fermer le modal
   useEffect(() => {
     const onKeyDown = (e) => {
       if (e.key === "Escape") setShowModal(false);
@@ -24,11 +33,12 @@ const Modal = ({
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [showModal, setShowModal]);
 
-  // clic backdrop
+  // Gestion du clic sur le fond noir → ferme le modal
   const handleBackdrop = (e) => {
     if (e.target === backdropRef.current) setShowModal(false);
   };
 
+  // Si showModal = false → on retourne null (rien n’est monté dans le DOM)
   if (!showModal) return null;
 
   return (
@@ -45,10 +55,12 @@ const Modal = ({
           fontSize: fontSizeModal,
         }}
       >
+        {/* Bouton de fermeture */}
         <CloseButton onClick={() => setShowModal(false)} aria-label="Close">
           &times;
         </CloseButton>
 
+        {/* Icônes inline SVG → évite d'importer des images */}
         {iconModal === "success" && (
           <IconWrapper>
             <SuccessSVG />
@@ -60,6 +72,7 @@ const Modal = ({
           </IconWrapper>
         )}
 
+        {/* Contenu du modal */}
         <Content style={{ color: contentcolor }}>
           {typeof content === "string" ? <p>{content}</p> : content}
         </Content>
@@ -68,8 +81,7 @@ const Modal = ({
   );
 };
 
-/* -------------------- Inline SVGs -------------------- */
-
+/* -------------------- SVG Success & Error -------------------- */
 const SuccessSVG = () => (
   <svg width="60" height="60" viewBox="0 0 24 24" fill="green">
     <path d="M9 16.2l-3.5-3.5L4 14.2l5 5 12-12-1.4-1.4z" />
@@ -85,15 +97,10 @@ const ErrorSVG = () => (
   </svg>
 );
 
-/* -------------------- Styles -------------------- */
-
-const fadeIn = keyframes`
-  from { opacity: 0; } to { opacity: 1; }
-`;
-const riseIn = keyframes`
-  from { transform: translateY(6px); opacity: 0; }
-  to   { transform: translateY(0); opacity: 1; }
-`;
+/* -------------------- Styles avec styled-components -------------------- */
+const fadeIn = keyframes`from { opacity: 0; } to { opacity: 1; }`;
+const riseIn = keyframes`from { transform: translateY(6px); opacity: 0; }
+                         to { transform: translateY(0); opacity: 1; }`;
 
 const Backdrop = styled.div`
   position: fixed;
